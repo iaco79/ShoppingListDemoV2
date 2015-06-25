@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_shop"
+        android:orderInCategory="100"
+        android:title="Shop list"/>
+    <item
+        android:id="@+id/action_edit"
+        android:orderInCategory="101"
+        android:title="Edit Items"/>
+</menu>

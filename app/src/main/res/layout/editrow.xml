@@ -1,0 +1,51 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+    <ImageView
+        android:id="@+id/itemimage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="#FFFFFF"
+        android:src="@drawable/yesimg"
+        android:layout_gravity="start"
+        android:focusable="false"
+        />
+
+    <LinearLayout
+        android:focusable="false"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent">
+        <TextView
+            android:focusable="false"
+            android:id="@+id/toptext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:padding="4dp"
+            />
+        <TextView
+            android:focusable="false"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/bottomtext"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:padding="4dp" />
+
+    </LinearLayout>
+    <CheckBox
+        android:id="@+id/deletecheck"
+        android:layout_gravity="end"
+        android:layout_width="30dp"
+        android:layout_height="100dp" />
+</LinearLayout>
+    

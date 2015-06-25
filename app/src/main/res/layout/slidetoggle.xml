@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+      
+    <FrameLayout
+        android:id="@+id/flleft"
+        android:layout_width="wrap_content"
+	    android:layout_height="fill_parent"
+	    android:background="#000000"
+        android:padding="2dp"
+	     
+        >
+        <ImageView            
+	        android:id="@+id/emptyLeft"
+	        android:layout_width="100dp"
+	        android:layout_height="100dp"
+	        android:background="#FFFFFF"
+	        android:src="@drawable/noimg"
+	        android:layout_gravity="center"
+	         />
+	    <ImageView
+	        android:id="@+id/iconLeft"
+	        android:layout_width="100dp"
+	        android:layout_height="100dp"
+	        
+	        android:visibility ="invisible"
+	        
+            
+	         />
+	    
+	    
+
+    </FrameLayout>
+    
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dip"
+        android:layout_weight="1"
+        android:layout_height="fill_parent">
+        <TextView
+            android:id="@+id/toptext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:padding="4dp" 
+        />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/bottomtext"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceSmall"            
+            android:padding="4dp" />
+        />
+    </LinearLayout>
+    
+     <FrameLayout
+        android:id="@+id/flright"
+        android:layout_width="wrap_content"
+	    android:layout_height="fill_parent"
+	    android:background="#000000"
+	    android:padding="2dp"
+        >
+        <ImageView
+	        android:id="@+id/emptyRight"
+	        android:layout_width="100dp"
+	        android:layout_height="100dp"
+	        android:background="#FFFFFF"
+	        android:src="@drawable/yesimg"
+	        android:layout_gravity="center"
+	        
+	         />
+	    <ImageView
+	        android:id="@+id/iconRight"
+	        android:layout_width="100dp"
+	        android:layout_height="100dp"
+	        android:visibility ="invisible"
+	         />
+	    
+    </FrameLayout>
+    
+</merge>
