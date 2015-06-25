@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import com.iaco.testapp.dto.Item;
+import com.iaco.testapp.util.FileUtil;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -43,19 +45,7 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
             
     }
     
-    public Drawable  getImageFromAssets(String imagename) 
-    {
-        try {
 
-            InputStream ims = getContext().getAssets().open("images/" + imagename);
-            Drawable d = Drawable.createFromStream(ims, null);
-            return d;
-        }
-        catch(IOException ex) {
-            return null;
-        }
-    }
-        
     @Override
     public View getView(int position, 
     					View convertView, 
@@ -89,7 +79,7 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
                         @Override
                         protected Drawable doInBackground(Object... params) {
                             String imageName = (String)params[0];
-                            Drawable d= getImageFromAssets(imageName);
+                            Drawable d= FileUtil.getImage(getContext(),imageName);
                             
                             imv1 =  (ImageView)params[1];
                             imv2 =  (ImageView)params[2];

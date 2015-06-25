@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.iaco.testapp.dto.Item;
+import com.iaco.testapp.util.FileUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,18 +53,7 @@ public class EditItemListAdapter extends ArrayAdapter<Item> {
             
     }
     
-    public Drawable  getImageFromAssets(String imagename) 
-    {
-        try {
 
-            InputStream ims = getContext().getAssets().open("images/" + imagename);
-            Drawable d = Drawable.createFromStream(ims, null);
-            return d;
-        }
-        catch(IOException ex) {
-            return null;
-        }
-    }
         
     @Override
     public View getView(int position, 
@@ -88,8 +78,7 @@ public class EditItemListAdapter extends ArrayAdapter<Item> {
                 TextView bottomText = (TextView) v.findViewById(R.id.bottomtext);
                 ImageView image = (ImageView) v.findViewById(R.id.itemimage);
                 CheckBox checkbox = (CheckBox) v.findViewById(R.id.deletecheck);
-                Drawable d= getImageFromAssets(o.getPictureName());
-
+                Drawable d= FileUtil.getImage(getContext(), o.getPictureName());
 
                 topText.setText(o.getName());
                 bottomText.setText(o.getDescription());

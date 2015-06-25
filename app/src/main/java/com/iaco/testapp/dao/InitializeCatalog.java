@@ -4,6 +4,7 @@
 package com.iaco.testapp.dao;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 
 public class InitializeCatalog implements DBHelper.AfterCreateHandler {
 	
@@ -44,6 +45,11 @@ public class InitializeCatalog implements DBHelper.AfterCreateHandler {
 						+ ", 1 "
 						+ ")" 
 				);
-		}		
+
+
+
+		}
+
+
 	}
 }
