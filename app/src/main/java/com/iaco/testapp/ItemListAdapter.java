@@ -19,7 +19,7 @@ import android.widget.ImageView;
 
 public class ItemListAdapter extends ArrayAdapter<Item> {
 
-    private List<Item> items;
+    public List<Item> items;
     private OnItemViewChangeListener itemViewChangeListener;
     
     public interface OnItemViewChangeListener

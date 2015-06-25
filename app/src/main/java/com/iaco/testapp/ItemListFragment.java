@@ -17,17 +17,23 @@ import android.widget.TabHost;
 import com.iaco.testapp.dao.ItemDao;
 import com.iaco.testapp.dto.Item;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 
 public class ItemListFragment extends ListFragment {
 
 	
 	private ItemListAdapter m_adapter;
 	private ItemDao m_dao = null;
-	
+	private int filter = -1;
+
 	protected int getLayout() {
 		return R.layout.listfragment;
 	}
 	
+
 
 	
 	public void setListAdapter() {
@@ -49,6 +55,15 @@ public class ItemListFragment extends ListFragment {
 					@Override
 					public void onChange(Item item) {
 						m_dao.update(item);
+
+						if(filter>=0 && filter != item.getStatus())
+						{
+
+							m_adapter.items.remove(item);
+							m_adapter.notifyDataSetChanged();
+
+						}
+
 						
 					}
 				});
@@ -80,19 +95,37 @@ public class ItemListFragment extends ListFragment {
 		View v2= v.findViewById(R.id.dummyTab1);
 
 
-		tab1.setIndicator("Tab1");
+		tab1.setIndicator("All");
 		tab1.setContent(R.id.dummyTab1);
 
-		tab2.setIndicator("Tab2");
+		tab2.setIndicator("Yes");
 		tab2.setContent(R.id.dummyTab2);
 
-		tab3.setIndicator("Tab3");
+		tab3.setIndicator("No");
 		tab3.setContent(R.id.dummyTab3);
 
 		tabHost.addTab(tab1);
 		tabHost.addTab(tab2);
 		tabHost.addTab(tab3);
+		tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+			@Override
+			public void onTabChanged(String tabId) {
 
+				if (tabId == "TabAll") {
+					filter = -1;
+					refreshList();
+				} else if (tabId == "TabYes") {
+					filter = 1;
+					refreshList();
+				} else if (tabId == "TabNo") {
+
+					filter = 0;
+					refreshList();
+				}
+
+
+			}
+		});
 
 		return layout;
 	}
@@ -102,6 +135,34 @@ public class ItemListFragment extends ListFragment {
 		super.onActivityCreated(savedInstanceState);
 
 		setListAdapter();
-	}	    
-    
+	}
+
+	private void refreshList()
+	{
+		List<Item> list = new ArrayList<Item>();
+		list = m_dao.getList();
+
+
+		if(filter>=0)
+		{
+			for (Iterator<Item> iter = list.listIterator(); iter.hasNext(); )
+			{
+				Item item = iter.next();
+				if (item.getStatus() != filter)
+				{
+					iter.remove();
+				}
+			}
+		}
+
+		this.m_adapter.items.clear();
+		this.m_adapter.items.addAll(list);
+		this.m_adapter.notifyDataSetChanged();
+	}
+
+
+
+
+
+
 }
