@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,7 +31,9 @@ public class EditItemListAdapter extends ArrayAdapter<Item> {
 
     public interface OnEditItemClickListener
     {
-  	  void OnEditItemClick(Item item);
+  	    void OnSelectItem(Item item);
+        void OnDeselectItem(Item item);
+
     }
 
     public void setOnEditItemClickListener(OnEditItemClickListener pitemClickListener)
@@ -91,20 +94,29 @@ public class EditItemListAdapter extends ArrayAdapter<Item> {
                 topText.setText(o.getName());
                 bottomText.setText(o.getDescription());
                 image.setImageDrawable(d);
-                image.setTag(o);
-                image.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(itemClickListener!= null)
-                        {
-                            ImageView img = (ImageView) v;
-                            Item item = (Item)v.getTag();
-                            itemClickListener.OnEditItemClick(item);
+                checkbox.setTag(o);
+                checkbox.setChecked(o.isToDelete());
 
+                checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                        Item item = (Item) buttonView.getTag();
+                        if(isChecked)
+                        {
+                            item.setToDelete(true);
+                            itemClickListener.OnSelectItem(item);
+                        }
+                        else
+                        {
+
+                            item.setToDelete(false);
+                            itemClickListener.OnDeselectItem(item);
 
                         }
                     }
                 });
+
 
             }
 

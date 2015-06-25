@@ -12,6 +12,16 @@ public class Item extends BaseDto {
 		return pictureName;
 	}
 
+	public boolean isToDelete() {
+		return toDelete;
+	}
+
+	public void setToDelete(boolean toDelete) {
+		this.toDelete = toDelete;
+	}
+
+	private boolean toDelete=false;
+
 	public void setPictureName(String pictureName) {
 		this.pictureName = pictureName;
 	}

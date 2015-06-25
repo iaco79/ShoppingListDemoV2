@@ -9,6 +9,8 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import com.iaco.testapp.dao.ItemDao;
@@ -16,6 +18,11 @@ import com.iaco.testapp.dto.Item;
 
 import android.widget.AdapterView;
 import android.content.Intent;
+import android.widget.RelativeLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class EditItemListFragment extends ListFragment {
 
 
@@ -27,6 +34,7 @@ public class EditItemListFragment extends ListFragment {
 		return R.layout.editlistfragment;
 	}
 	
+	List<Item> toDelete;
 
 	
 	public void setListAdapter() {
@@ -50,11 +58,20 @@ public class EditItemListFragment extends ListFragment {
 					 * Update the item status in the DB table
 					 */
 					@Override
-					public void OnEditItemClick(Item item) {
-						Intent intent = new Intent(getActivity(), com.iaco.testapp.EditActivity.class);
-						startActivityForResult(intent, 1001);
+					public void OnSelectItem(Item item) {
+
+						if(!toDelete.contains(item))
+							toDelete.add(item);
+					}
+
+					@Override
+					public void OnDeselectItem(Item item) {
+						if(toDelete.contains(item))
+							toDelete.remove(item);
 
 					}
+
+
 				});
 
 
@@ -66,14 +83,42 @@ public class EditItemListFragment extends ListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
-		ListView listView  =  (ListView) inflater.inflate(getLayout(), container,
+
+		toDelete  = new ArrayList<Item>();
+
+		RelativeLayout layout = (RelativeLayout)inflater.inflate(getLayout(), container,
 				false);
+		ListView listView  = (ListView) layout.findViewById(android.R.id.list);
+
+		ImageButton addButton = (ImageButton) layout.findViewById(R.id.editAddButton);
+		ImageButton removeButton = (ImageButton) layout.findViewById(R.id.editRemoveButton);
+
+		addButton.setOnClickListener(new View.OnClickListener() {
+										 @Override
+										 public void onClick(View v) {
+											 Intent intent = new Intent(getActivity(), com.iaco.testapp.EditActivity.class);
+											 startActivityForResult(intent, 1001);
 
 
+										 }
+									 }
+		);
+
+		removeButton.setOnClickListener(new View.OnClickListener() {
+											@Override
+											public void onClick(View v) {
+
+												for (Item item : toDelete) {
+													m_dao.delete(item);
+												}
+												refreshList();
+
+											}
+										}
+		);
 
 
-		return listView;
+		return layout;
 	}
 
 	@Override
@@ -92,14 +137,22 @@ public class EditItemListFragment extends ListFragment {
 		if(needsRefresh)
 		{
 
-			this.m_adapter.items.clear();
-			this.m_adapter.items.addAll(m_dao.getList());
-			this.m_adapter.notifyDataSetChanged();
+			refreshList();
 
 
 		}
 
 	}
+
+	void refreshList()
+	{
+
+		this.m_adapter.items.clear();
+		this.m_adapter.items.addAll(m_dao.getList());
+		this.m_adapter.notifyDataSetChanged();
+
+	}
+
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// Check which request we're responding to
