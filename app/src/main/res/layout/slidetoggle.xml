@@ -21,10 +21,7 @@
 	        android:id="@+id/iconLeft"
 	        android:layout_width="100dp"
 	        android:layout_height="100dp"
-	        
 	        android:visibility ="invisible"
-	        
-            
 	         />
 	    
 	    

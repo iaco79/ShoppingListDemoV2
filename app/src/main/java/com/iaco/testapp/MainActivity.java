@@ -80,6 +80,9 @@ public class MainActivity extends FragmentActivity
 
 		CustomViewPager pager = (CustomViewPager) findViewById(R.id.pager);
 
+		PagerTabStrip  tabStrip = (PagerTabStrip) findViewById(R.id.pager_tab_strip);
+
+		tabStrip.setTabIndicatorColor(0x00bede);
 
 		pageAdapter = new TabPageAdapter(getSupportFragmentManager());
 		pager.setAdapter(pageAdapter);
